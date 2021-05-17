@@ -1,5 +1,7 @@
 import pickle as pk
-from netlab import top_ten_movies
+from netlab import top_ten_movie
+from netlab import User
+from netlab import Fuser
 from tqdm import tqdm
 
 #Get top ten movies
@@ -9,65 +11,6 @@ ttm = [(str(x)).split("\n")[0] for x in ttm]
 movies = set()
 series = set()
 final_dataset = set()
-
-class User:
-    """
-    A simple Allocine user class
-    id : user id (Ex : Z20130627102432253638364)
-    pid : parent id (the user he is following)
-    pl : page_link
-    fw : followers
-    first of all, the list of followers is a list of
-    simple string
-    When we compute all followers and get each user data
-    We finally transform the simple list of string into
-    a list of user that's why we define the new function
-    (set_followers) in order to performs this action
-    """
-
-    def __init__(self, page_link, followers, name):
-        self.id = page_link.split("membre-",2)[1].split("/",3)[0]
-        self.pl = page_link
-        self.fw = followers
-        self.name = name
-
-    def data_init(self, movies, series):
-        self.movi = movies
-        self.seri = series
-    
-    def set_followers(self, followers):
-        self.fw = followers
-
-class Fuser:
-    """
-    Final user class
-    comments goes here
-    """
-
-    def __init__(self, page_link, followers, name):
-        self.id = page_link.split("membre-",2)[1].split("/",3)[0]
-        self.pl = page_link
-        self.fw = followers
-        self.name = name
-
-    def data_init(self, movies, series, mov_ratings, ser_ratings):
-        self.movi = movies
-        self.seri = series
-        self.mov_rat = mov_ratings
-        self.ser_rat = ser_ratings
-    
-    def set_id(self, u_id):
-        self.id = u_id
-
-    def set_page_link(self, page_link):
-        self.pl = page_link
-    
-    def set_followers(self, followers):
-        self.fw = followers
-    
-    def set_name(self, name):
-        self.name = name
-    
 
 #Load our dataset
 def load_dataset(path):
@@ -152,33 +95,22 @@ def clean_data():
             fuser.set_followers(ufs)
             final_dataset.add(fuser)
 
-    save_dataset(final_dataset,"final_data/final_dataset")
-    save_dataset(movies,"final_data/movies")
-    save_dataset(series,"final_data/series")
+    save_dataset(final_dataset,"../final_data/final_dataset")
+    save_dataset(movies,"../final_data/movies")
+    save_dataset(series,"../final_data/series")
 
 def read_final_dataset():
 
-    dataset = load_dataset("final_data/final_dataset.pk")
-    file = open("final_data/users.txt", "w") 
-    total = 0
-    data = set()
-    for m in dataset:
-        # print(m.pl)
-        data.add(m.pl)
-        total += 1
-        if m.fw is not None:
-            total += len(m.fw)
-            for f in m.fw:
-                data.add(f.pl)
+    dataset = load_dataset("../final_data/final_dataset.pk")
 
-    for m in data:
-        file.write(m+"\n")
+    for d in dataset:
+        print(d.pl)
+        for r in d.mov_rat:
+            print("     rating : " + r.split(":")[0] + " movie : " + r.split(":")[1])
 
-    file.close()
-
-print("Begin Movies Recommandation Data Reading Process.")
+print("Begin Allocine Movies Recommandation Data Processing.")
 #clean data
 # clean_data()
 #read data
 read_final_dataset()
-print("Begin Movies Recommandation Data Reading Process.")
+print("End Allocine Movies Recommandation Data Processing.")
