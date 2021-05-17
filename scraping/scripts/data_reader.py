@@ -1,16 +1,13 @@
 import pickle as pk
 
 # load our dataset
-def load_dataset():
+def load_dataset(path):
     #load with pk
-    return pk.load(open("data/1917.pk", "rb"))
-
-
-print("Begin Movies Recommandation Data Reading Process.")
+    return pk.load(open(path, "rb"))
 
 def show_data():
 
-    dataset = load_dataset()
+    dataset = load_dataset("data/1917.pk")
     total = 0
     for user in dataset:
 
@@ -31,7 +28,7 @@ def show_data():
 
     print("total",total,"\n")
 
+print("Begin Movies Recommandation Data Reading Process.")
 #run
 show_data()
-
 print("Ending Movies Recommandation Data Reading Process.")
