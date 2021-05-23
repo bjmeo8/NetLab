@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<h:head>
+	<title>singup</title>
+
+	<link rel="icon" type="image/png" href="./images/netflix-image.jpg" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/animate/animate.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/css-hamburgers/hamburgers.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/animsition/css/animsition.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/select2/select2.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./resources/vendor/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="./resources/css/util.css" />
+	<link rel="stylesheet" type="text/css" href="./resources/css/main.css" />
+</h:head>
+<h:body>
+
+
+
+	<div class="limiter">
+		<div class="container-login100"
+			style="background-image: url('./resources/images/netflix-image.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41"> Account sign up </span>
+
+				<h:form class="login100-form validate-form p-b-33 p-t-5">
+					<div class="wrap-input100 validate-input"
+						data-validate="Enter username">
+						<h:inputText name="username" id="username" class="input100"
+							type="text" p:placeholder="your user name" value="#{signBean.name}" />
+
+					</div>
+
+
+					<div class="wrap-input100 validate-input"
+						data-validate="Enter password">
+						<h:inputSecret id="password" class="input100" type="password"
+							name="pass" p:placeholder="your password" value="#{signBean.password}" />
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input"
+						data-validate="Enter mail">
+						<h:inputText id="mail" class="input100" type="text"
+							name="pass" p:placeholder="your mail" value="#{signBean.mail}" />
+					</div>
+
+					
+					<div class="wrap-input100 validate-input">
+						<h:selectOneMenu class="input100"
+									value="#{signBean.genres}">
+									<f:selectItem class="input100" itemLabel="Catégorie de site" />
+									<f:selectItem class="input100" itemValue="action" itemLabel="action" />
+									<f:selectItem class="input100" itemValue="adventure" itemLabel="adventure" />
+									<f:selectItem class="input100" itemValue="Comedy" itemLabel="Comedy" />
+						
+						</h:selectOneMenu>
+					</div>
+
+								
+								<span class="select-arrow"></span>
+						
+
+					<div class="container-login100-form-btn m-t-32">
+
+							<h:commandLink  class="login100-form-btn"
+								action="#{signBean.insertuser}" value="sign Up" />
+						</div>
+						
+						
+				<div class="container-login100-form-btn m-t-32">
+
+							<h:link  class="login100-form-btn"
+								value = "login" outcome = "login.xhtml" />
+						</div>		
+						
+				</h:form>
+				
+				
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>

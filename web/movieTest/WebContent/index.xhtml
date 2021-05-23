@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Test Tags</title>
+	<link href="./resources/css/bootstrap.min.css" rel="stylesheet"
+		type="text/css" />
+	<link href="./resources/css/style.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+
+	<div id="booking" class="section">
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form">
+						<h:form>
+							<div class="form-group">
+								<div class="form-checkbox">
+									<label for="roundtrip"> <h:outputText
+											value="AGP-Maldives" style="font-weight:bold" /> <span></span>
+									</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">username</span>
+										<h:inputText class="form-control" type="text"
+											p:placeholder="username"
+											value="#{​​​​​signBean.username}​​​​​" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">password</span>
+										<h:inputText class="form-control" type="paswword"
+											p:placeholder="Vote Budget Maximum"
+											value="#{​​​​​signBean.password}​​​​​" />
+									</div>
+								</div>
+							</div>
+							<div class="row"></div>
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+										<span class="form-label">Catégorie</span>
+										<h:selectOneMenu class="form-control"
+											value="#{​​​​​signBean.category}​​​​​">
+											<f:selectItem itemValue="" itemLabel="Catégorie de site" />
+											<f:selectItem itemValue="historic"
+												itemLabel="Monument historique" />
+											<f:selectItem itemValue="activity" itemLabel="Activité" />
+										</h:selectOneMenu>
+										<span class="select-arrow"></span>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-btn">
+										<h:commandLink class="action-button" action="" value="" />
+									</div>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

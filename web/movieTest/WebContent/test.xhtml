@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+      
+      <h:head>
+<title>Test Tags</title>
+
+<link href="./resources/css/testcss.css" rel="stylesheet" type="text/css"/>
+
+
+<style>
+.grid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  align-items: stretch;
+  }
+.grid > article {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+.grid > article img {
+  max-width: 100%;
+}
+.text {
+  padding: 0 20px 20px;
+}
+.text > button {
+  background: gray;
+  border: 0;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  }
+  
+
+</style>
+</h:head>
+<h:body>
+<main class="grid">
+  <article>
+    <div class="text">
+      <h3>Seamlessly visualize quality</h3>
+      <p>Collaboratively administrate</p>
+      <button>Here's why</button>
+    </div>
+  </article>
+</main>
+</h:body>
+</html>

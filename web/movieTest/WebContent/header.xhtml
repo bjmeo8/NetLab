@@ -1,0 +1,166 @@
+<ui:composition 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" > </meta>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> </meta>
+<link href="./resources/css/style.css" rel="stylesheet" type="text/css" media="all"> </link>
+<link href="./resources/css/menu.css" rel="stylesheet" type="text/css" media="all"> </link>
+<link href="./resources/css/div.css" rel="stylesheet" type="text/css" media="all"> </link>
+<link href="./resources/css/rech.css" rel="stylesheet" type="text/css" media="all"> </link>
+<link rel="stylesheet" href="./resources/bootstrap/css/bootstrap.css"  />
+
+
+	<script src="./resources/js/jquerymain.js"></script>
+	<script src="./resources/js/script.js" type="text/javascript"></script>
+	<script type="text/javascript" src="./resources/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="./resources/js/nav.js"></script>
+	<script type="text/javascript" src="./resources/js/move-top.js"></script>
+	<script type="text/javascript" src="./resources/js/easing.js"></script>
+	<script type="text/javascript" src="./resources/js/nav-hover.js"></script>
+	
+	<script src="js/func.js" type="text/javascript"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Monda' rel='stylesheet' type='text/css'> </link>
+	<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'> </link>
+	<link rel="stylesheet"  type="text/css"  href="./resources/css/rech.css"> </link>
+	<link rel="stylesheet"  type="text/css"  href="./resources/css/msg.css"> </link>
+	<link rel="stylesheet" type="text/css" href="./resources/css/forme.css"> </link>
+	
+	
+	
+<script>
+     var check = function() {
+  if (document.getElementById('password').value ==
+    document.getElementById('confirm_password').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').style.position = 'absolute';
+    document.getElementById('message').style.float = 'right';
+    document.getElementById('message').innerHTML = 'not matching';
+
+  }
+}
+     </script>
+	
+	
+	
+	
+	<style>
+
+.avis {
+width: 1225px;
+HEIGHT: 80px;
+background-color: #E6E6FA;
+padding-top: 18px;
+margin-top: 12px;
+}
+
+.commentaire {
+  margin-left: 12px;
+  color: #222;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 19px;
+}
+.auteur {
+  font-weight: bold;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+#comment {
+  width: 150%;
+      height: 150px;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+      font-size: 16px;
+      resize: none;
+
+}
+summary {
+    display: block;
+    background: #0d5d9c;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 1217px;
+    margin-top: 12PX;
+
+}
+</style>
+
+
+
+	
+
+
+
+
+<!-- 
+	<link rel="stylesheet" href="./resources/css/demo.css"/>
+	<link rel="stylesheet" href="./resources/css/headercss.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+ -->
+
+  <div class="wrap">
+		<div class="header_top">
+			<div class="logo">
+			<a   href="https://www.google.com/"><img src="./resources/images/log.png" alt="a"   style="width : 130px; height : 70px  "  /></a>
+				
+			</div>
+			  <div class="header_top_right">
+			    <div class="search_box">
+				     <form action="" method="POST" id="search_form">
+              			<input type="text" name="search" id="search" placeholder="search movie"> </input>
+				    </form>
+			    </div>
+			    <div id="result">
+                <ul>
+                </ul>
+                </div>
+                
+                <h:form  class="butonform" action= "#{loginBean.logout}" method="post">
+              <button  class = "btn btn-primary" type="submit" name="logout-submit" style="  float:right;  margin-top: -15px   ">Logout</button>
+                </h:form>
+			
+              <button class = "btn btn-success" type="submit"  name="reglageee-submit" style=" float:right; margin-top: -15px    ">#{loginBean.username}</button>
+              
+
+
+		 <div class="clear"></div>
+	 </div>
+	 <div class="clear"></div>
+ </div>
+ 	<ul id="dc_mega-menu-orange" class="dc_mm-orange">
+	  <li><a href="index.php">Home</a></li>
+<!-- 	  <li><a href="itemitem.xhtml">item item algo</a> </li> -->
+	  <li> 
+	  <h:form >
+	  		<h:commandLink  action="#{connectedBean.useAlgoItemItem}"  value="item item ALGO" /> 
+	  </h:form>		
+	  
+	  </li>
+	  <div class="clear"></div>
+	</ul>
+ </div>
+<!--  		
+	<h:form class = "lgout">	
+		<h:commandLink icon="ui-icon-next" class="" action="#{loginBean.logout}"  value="">
+		<i class="fa-smile-o"></i>
+		</h:commandLink>		
+	</h:form>
+-->	
+
+
+</ui:composition>
+

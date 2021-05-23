@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+
+    <h1>JSF 2 checkboxes example</h1>
+
+    <h:form id="cf">
+        <h2>Multiple checkboxes</h2>
+        <h:selectManyCheckbox id="films" value="#{user.course1}">
+            <f:selectItem itemValue="1" itemLabel="Java" />
+            <f:selectItem itemValue="2" itemLabel="Scala" />
+            <f:selectItem itemValue="3" itemLabel="Groovy" />
+            <f:selectItem itemValue="4" itemLabel="Ruby" />
+        </h:selectManyCheckbox>
+
+        <h4>3. with array</h4>
+        <h:selectManyCheckbox id="course2" value="#{user.course2}">
+            <f:selectItems value="#{courses.courseArray}" />
+        </h:selectManyCheckbox>
+
+        <h4>4. with map</h4>
+        <h:selectManyCheckbox id="course3" value="#{user.course3}">
+            <f:selectItems value="#{courses.courseMap}" />
+        </h:selectManyCheckbox>
+
+        <h4>5. with object array</h4>
+        <h:selectManyCheckbox id="course4" value="#{user.course4}">
+            <f:selectItems value="#{courses.courseObjectArray}" var="course"
+                           itemLabel="#{course.label}" itemValue="#{course.value}" />
+        </h:selectManyCheckbox>
+
+        <h:commandButton id="submit" value="Submit" action="result" />
+        <h:commandButton id="reset" value="Reset" type="reset" />
+
+    </h:form>
+</h:body>
+</html>
