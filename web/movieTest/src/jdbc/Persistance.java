@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.User;
-import restApi.ImagePoster;
+import restApi.OmdbApi;
 import model.Movie;
 import model.Rating;
 
@@ -101,11 +101,11 @@ public class Persistance {
 				String posterpath = "";
 				if (dataSource.contentEquals("kaggle")) {
 					String imdb_id = rs.getString("imdb_id");
-					String posterbyImdbid = ImagePoster.getMoviePosterByImdbID(imdb_id);
+					String posterbyImdbid = OmdbApi.getMoviePosterByImdbID(imdb_id);
 					if (!posterbyImdbid.contentEquals("")) {
 						posterpath = posterbyImdbid;
 					} else {
-						posterpath = "./resources/images/netflix-image.jpg";
+						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
 					}
 					
 					movie.setPoster_path(posterpath);
@@ -195,15 +195,59 @@ public class Persistance {
 	public static Movie getMovieinfo(String valButton) {
 		Movie movie = new Movie();
 		try {
-			String query = "SELECT * FROM movies where title ='" + valButton + "'";
+			String query = "SELECT * FROM movie where title ='" + valButton + "'";
 			Connection dbConnection = JdbcConnection.getConnection();
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 
 				movie.setTitle(rs.getString("title"));
+				movie.setOverview(rs.getString("overview"));
+				movie.setProduction_companies(rs.getString("production_companies"));
+				movie.setDataSource(rs.getString("data_source"));
+				String idImdb = rs.getString("data_source");
+				String dataSource = rs.getString("data_source");
+				String posterpath = "";
 				// zid l ba9i
 				// movie.setIduser(rs.getString("user"));
+				String imdb_id = rs.getString("imdb_id");
+
+				if (dataSource.contentEquals("kaggle")) {
+					String posterbyImdbid = OmdbApi.getMoviePosterByImdbID(imdb_id);
+					if (!posterbyImdbid.contentEquals("")) {
+						posterpath = posterbyImdbid;
+					} else {
+						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
+					}
+					
+					movie.setPoster_path(posterpath);
+
+				}
+				else {
+					String posterAlloCine = rs.getString("poster_path");
+					posterpath = posterAlloCine;
+					movie.setPoster_path(posterpath);
+					
+				}
+				
+				if ( dataSource.contentEquals("kaggle")) {
+					movie.setGenres(OmdbApi.getMovieGenreByImdbID(imdb_id));
+				}
+				else {
+					String genreAllocine = rs.getString("genres");
+					//System.out.println("le genre " + genreAllocine);
+					movie.setGenres(genreAllocine);
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 			preparedStatement.close();
 		} catch (Exception e) {
@@ -212,7 +256,11 @@ public class Persistance {
 
 		return movie;
 	}
-
+	/**
+	 * tarek fait attention où elle appelé la methode car elle utilise ancien base  /!\
+	 * @param title
+	 * @return
+	 */
 	public static ArrayList<String> getAallMovieOfUser(int userID) throws SQLException {
 
 		ArrayList<String> movies = new ArrayList<String>();
@@ -232,7 +280,11 @@ public class Persistance {
 		return movies;
 
 	}
-
+/**
+ * tarek fait attention où elle appelé la methode car elle utiliser movies et pas movie /!\
+ * @param title
+ * @return
+ */
 	public static Movie getMovieBytitle(String title) {
 
 		Movie movie = new Movie();
