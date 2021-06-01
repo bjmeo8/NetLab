@@ -126,8 +126,10 @@ public class ConnectedBean {
         //System.out.println(username);
         int  userId = Integer.parseInt(SessionUtils.getUserId());
         System.out.println(userId);
+        System.out.println(movie.getId());
+        System.out.println(movie.getDataSource());
         //Persistance.persistRating(movie.getTitle(), userId, rating);
-        Persistance.persistRating(userId, movie.getTitle(), rating);
+        Persistance.persistRating(userId, movie.getId(), rating,movie.getDataSource());
         System.out.println("ya khrrrrrrrrrrrrrrraaaaaaaa");
     }
     
@@ -142,8 +144,8 @@ public class ConnectedBean {
     	ArrayList<String> tab = new ArrayList<String>();
     	int  userId = Integer.parseInt(SessionUtils.getUserId());
     	System.out.println("------------------"+ userId + "-----------------");
-    	tab = Persistance.getAallMovieOfUser(userId) ;
-    	setItemItem(Persistance.getAallMovieOfUser(userId)); 	
+    	tab = Persistance.getAallMovieOfUser2(userId) ;
+    	setItemItem(Persistance.getAallMovieOfUser2(userId)); 	
     	//return tab;
     	String history = "";
     	for (int i = 0; i < this.itemItem.size(); i++) {
@@ -199,7 +201,7 @@ public class ConnectedBean {
 		String arg2 = "hola ";
 	    String[] cmd = {
 	    	      "python",
-	    	      "D:\\PYTHON IDE\\communicationJAVAPYthon\\item_item.py",
+	    	      "D:\\PYTHON IDE\\communicationJAVAPYthon\\last_item_item.py",
 	    	      arg1,arg2
 	    	    };
 	    	  //Runtime.getRuntime().exec(cmd);	 

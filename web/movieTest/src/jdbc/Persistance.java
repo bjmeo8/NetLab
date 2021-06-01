@@ -107,18 +107,15 @@ public class Persistance {
 					} else {
 						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
 					}
-					
+
 					movie.setPoster_path(posterpath);
 
-				}
-				else {
+				} else {
 					String posterAlloCine = rs.getString("poster_path");
 					posterpath = posterAlloCine;
 					movie.setPoster_path(posterpath);
 
-					
 				}
-				
 
 				movies.add(movie);
 			}
@@ -168,14 +165,14 @@ public class Persistance {
 
 	}
 
-	public static void persistRating(int userId, String movieName, Integer rating1) {
+	public static void persistRating(int userId, String movieName, Integer rating1, String dataSource) {
 		System.out.println("rani f persistance");
 
 		Rating rating = new Rating(movieName, userId, rating1);
 
 		try {
 
-			String insertAddressQuery = "INSERT INTO rating (id_movie_foreign,id_user_foreign,rating) VALUES (?,?,?)";
+			String insertAddressQuery = "INSERT INTO rating (movie_id,user_id,rating,source) VALUES (?,?,?,?)";
 
 			Connection dbConnection = JdbcConnection.getConnection();
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(insertAddressQuery);
@@ -184,6 +181,7 @@ public class Persistance {
 			preparedStatement.setString(1, rating.getMovieName());
 			preparedStatement.setInt(2, rating.getUserId());
 			preparedStatement.setInt(3, rating.getRating());
+			preparedStatement.setString(4, dataSource);
 			preparedStatement.executeUpdate();
 
 			preparedStatement.close();
@@ -200,7 +198,7 @@ public class Persistance {
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
-
+				movie.setId(rs.getString("id"));
 				movie.setTitle(rs.getString("title"));
 				movie.setOverview(rs.getString("overview"));
 				movie.setProduction_companies(rs.getString("production_companies"));
@@ -219,35 +217,24 @@ public class Persistance {
 					} else {
 						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
 					}
-					
+
 					movie.setPoster_path(posterpath);
 
-				}
-				else {
+				} else {
 					String posterAlloCine = rs.getString("poster_path");
 					posterpath = posterAlloCine;
 					movie.setPoster_path(posterpath);
-					
+
 				}
-				
-				if ( dataSource.contentEquals("kaggle")) {
+
+				if (dataSource.contentEquals("kaggle")) {
 					movie.setGenres(OmdbApi.getMovieGenreByImdbID(imdb_id));
-				}
-				else {
+				} else {
 					String genreAllocine = rs.getString("genres");
-					//System.out.println("le genre " + genreAllocine);
+					// System.out.println("le genre " + genreAllocine);
 					movie.setGenres(genreAllocine);
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 			}
 			preparedStatement.close();
 		} catch (Exception e) {
@@ -256,15 +243,18 @@ public class Persistance {
 
 		return movie;
 	}
+
 	/**
-	 * tarek fait attention où elle appelé la methode car elle utilise ancien base  /!\
+	 * tarek fait attention où elle appelé la methode car elle utilise ancien base
+	 * /!\
+	 * 
 	 * @param title
 	 * @return
 	 */
 	public static ArrayList<String> getAallMovieOfUser(int userID) throws SQLException {
 
 		ArrayList<String> movies = new ArrayList<String>();
-		String query = "SELECT * FROM rating AS u WHERE u.id_user_foreign = ?";
+		String query = "SELECT * FROM rating AS u WHERE u.user_id = ?";
 
 		Connection dbConnection = JdbcConnection.getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
@@ -273,23 +263,61 @@ public class Persistance {
 		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
 			Movie movie = new Movie();
-			movie.setTitle(rs.getString("id_movie_foreign"));
-			movies.add(movie.getTitle());
+			movie.setId(rs.getString("movie_id"));
+			movies.add(movie.getId());
 		}
 
-		return movies;
+		
+
+		 return movies;
 
 	}
-/**
- * tarek fait attention où elle appelé la methode car elle utiliser movies et pas movie /!\
- * @param title
- * @return
- */
+	
+	public static ArrayList<String> getAallMovieByID(ArrayList<String> movieID) throws SQLException {
+	
+		ArrayList<String> movies2 = new ArrayList<String>();
+		Connection dbConnection2 = JdbcConnection.getConnection();
+		for (int i = 0; i < movieID.size(); i++) {
+			String query2 = "SELECT * FROM movie where id = ?";
+			
+			PreparedStatement preparedStatement = dbConnection2.prepareStatement(query2);
+			int movieid = Integer.parseInt(movieID.get(i));
+			preparedStatement.setInt(1, movieid);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Movie movie = new Movie();
+				movie.setTitle(rs.getString("title"));
+				movies2.add(movie.getTitle());
+			}
+
+		}
+		return movies2;
+	}
+	
+	
+	
+	public static ArrayList<String> getAallMovieOfUser2(int userID) throws SQLException {
+		ArrayList<String> movieID = getAallMovieOfUser(userID);
+		ArrayList<String> movietitle = getAallMovieByID(movieID);
+		return movietitle;
+		
+	}
+
+	
+	
+
+	/**
+	 * tarek fait attention où elle appelé la methode car elle utiliser movies et
+	 * pas movie /!\
+	 * 
+	 * @param title
+	 * @return
+	 */
 	public static Movie getMovieBytitle(String title) {
 
 		Movie movie = new Movie();
 		try {
-			String query = "SELECT * FROM movies where title ='" + title + "'";
+			String query = "SELECT * FROM movie where title ='" + title + "'";
 			Connection dbConnection = JdbcConnection.getConnection();
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 			ResultSet rs = preparedStatement.executeQuery();
@@ -308,6 +336,17 @@ public class Persistance {
 		return movie;
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public static String getRandomId_user() {
 		String x = "real_user";
@@ -319,6 +358,17 @@ public class Persistance {
 		String user = x + "_" + randomNumToString;
 		// System.out.println(user);
 		return user;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		
+	ArrayList<String > array = Persistance.getAallMovieOfUser2(1138);
+	
+	for (int i = 0; i < array.size(); i++) {
+		System.out.println(array.get(i));
+	}
+		
+		
 	}
 
 }
