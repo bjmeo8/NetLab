@@ -58,7 +58,8 @@ def get_user_history(uid,source):
     cursor.execute(query)
     
     for title, rating in cursor :
-        history[title] = rating
+        if title in title_list:
+            history[title] = rating
 
     cursor.close()
     cnx.close()
@@ -111,19 +112,22 @@ def get_recommendations(title, cosine_sim, title_list):
 def get_recommendations_history(history, cosine_sim, title_list, timestamp = False):
     votes = dict()
     keys_list = list(history)
-    for movie in history.keys() :
-        if timestamp :
-            w = 1 - (keys_list.index(movie)/len(history))*0.75
-        else : w = 1
-        rec = get_recommendations(movie, cosine_sim, title_list)
-        if movie == keys_list[0]:
-            first_movie = movie
-            first_rec = rec 
-        for movie_rec in rec:
-            if movie_rec in votes:
-                votes[movie_rec] += (1-rec.index(movie_rec)/100)*w*history[movie]
-            else:
-                votes[movie_rec] = (1-rec.index(movie_rec)/100)*w*history[movie]
+    if history != {} :
+        for movie in history.keys():
+            if movie in title_list:
+                if timestamp :
+                    w = 1 - (keys_list.index(movie)/len(history))*0.75
+                else : w = 1
+                rec = get_recommendations(movie, cosine_sim, title_list)
+                if movie == keys_list[0]:
+                    first_movie = movie
+                    first_rec = rec 
+                for movie_rec in rec:
+                    if movie_rec in votes:
+                        votes[movie_rec] += (1-rec.index(movie_rec)/100)*w*history[movie]
+                    else:
+                        votes[movie_rec] = (1-rec.index(movie_rec)/100)*w*history[movie]
+    else : first_movie, first_rec = ''
     for movie in history:
         if movie in votes:
             votes.pop(movie)
@@ -218,13 +222,13 @@ def test_relevance(source):
 
 # ---------------------- Execution Example ---------------------- #
 
-#createItemItemMatrix(9524,"titles.npy","matrix.npy",'allocine')
+#createItemItemMatrix(30000,"titles_kaggle.npy","matrix_kaggle.npy",'kaggle')
 
-title_list = np.load('titles.npy').tolist()
-item_item_matrix = np.load('matrix.npy')
+title_list = np.load('titles_kaggle.npy').tolist()
+item_item_matrix = np.load('matrix_kaggle.npy')
 
-history = {'Ça' : 5, 'Ça - Il est revenu' : 4, "Avengers : L'ère d'Ultron" : 2, 'Thor' : 1, 'Iron Man 3': 2, 'Avengers: Endgame' : 3}
-# history = get_user_history('Z20180216141155987942349', 'allocine')
-recommendation, votes, first_movie, first_rec = get_recommendations_history(history, item_item_matrix, title_list)
+#history = {'Ça' : 5, 'Ça - Il est revenu' : 4, "Avengers : L'ère d'Ultron" : 2, 'Thor' : 1, 'Iron Man 3': 2, 'Avengers: Endgame' : 3}
+#history = get_user_history('196', 'kaggle')
+#recommendation, votes, first_movie, first_rec = get_recommendations_history(history, item_item_matrix, title_list)
 
-# relevance = test_relevance('allocine')
+relevance = test_relevance('kaggle')
