@@ -296,10 +296,16 @@ public class Persistance {
 	
 	
 	
-	public static ArrayList<String> getAallMovieOfUser2(int userID) throws SQLException {
+	public static ArrayList<Movie> getAallMovieOfUser2(int userID) throws SQLException {
 		ArrayList<String> movieID = getAallMovieOfUser(userID);
 		ArrayList<String> movietitle = getAallMovieByID(movieID);
-		return movietitle;
+		ArrayList<Movie> moviess = new ArrayList<Movie>();
+		for (int i = 0; i< movietitle.size();i++) {
+			Movie movie = new Movie();
+			movie.setTitle(movietitle.get(i));
+			moviess.add(movie);
+		}
+		return moviess;
 		
 	}
 
@@ -317,16 +323,60 @@ public class Persistance {
 
 		Movie movie = new Movie();
 		try {
-			String query = "SELECT * FROM movie where title ='" + title + "'";
+			String query = "SELECT * FROM movie where title = ?";
 			Connection dbConnection = JdbcConnection.getConnection();
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			preparedStatement.setString(1,title );
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 
 				movie.setTitle(rs.getString("title"));
 				movie.setProduction_companies(rs.getString("production_companies"));
+				movie.setOverview(rs.getString("overview"));
+				movie.setDataSource(rs.getString("data_source"));
+				
 				// zid l ba9i
 				// movie.setIduser(rs.getString("user"));
+				
+				
+				
+				String posterpath = "";
+				// zid l ba9i
+				// movie.setIduser(rs.getString("user"));
+				String imdb_id = rs.getString("imdb_id");
+				String idImdb = rs.getString("data_source");
+				String dataSource = rs.getString("data_source");
+
+				if (dataSource.contentEquals("kaggle")) {
+					String posterbyImdbid = OmdbApi.getMoviePosterByImdbID(imdb_id);
+					if (!posterbyImdbid.contentEquals("")) {
+						posterpath = posterbyImdbid;
+					} else {
+						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
+					}
+
+					movie.setPoster_path(posterpath);
+
+				} else {
+					String posterAlloCine = rs.getString("poster_path");
+					posterpath = posterAlloCine;
+					movie.setPoster_path(posterpath);
+
+				}
+
+				if (dataSource.contentEquals("kaggle")) {
+					movie.setGenres(OmdbApi.getMovieGenreByImdbID(imdb_id));
+				} else {
+					String genreAllocine = rs.getString("genres");
+					// System.out.println("le genre " + genreAllocine);
+					movie.setGenres(genreAllocine);
+				}
+				
+				
+				
+				
+				
+				
 			}
 			preparedStatement.close();
 		} catch (Exception e) {
@@ -361,13 +411,16 @@ public class Persistance {
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		
+		/*
 	ArrayList<String > array = Persistance.getAallMovieOfUser2(1138);
 	
 	for (int i = 0; i < array.size(); i++) {
 		System.out.println(array.get(i));
 	}
-		
+	*/
+	Movie m = Persistance.getMovieBytitle("Tropa de Elite (troupe d\'élite)");
+	System.out.println(m.getTitle());
+	System.out.println(m.getProduction_companies());
 		
 	}
 

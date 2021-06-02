@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Movie infos</title>
+	
+</h:head>
+
+   <ui:include src="./header.xhtml"/>
+<h:body>
+					<div class="main">
+					<div class="content">
+					<div class="section group">
+					<div class="cont-desc span_1_of_2">
+					<div class="grid images_3_of_2">
+					<h:graphicImage url="#{connectedBean.movie.getPoster_path()}" style = "width : 300px; height :400px;" />
+					
+					
+					</div>
+					<div class="desc span_3_of_2">
+					<h2  style = 'font-family: "Arial Black", Gadget, sans-serif;text-transform: uppercase;' >#{connectedBean.movie.getTitle()}  </h2>
+					</div>
+					
+			<div class="product-desc">
+
+			<h2 style = 'font-family: "Arial Black", Gadget, sans-serif;text-transform: uppercase;'> information about the movie</h2>
+			<p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'   > <strong> Title </strong>  : #{connectedBean.movie.getTitle()}</p>
+	        <p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Genre </strong> : #{connectedBean.movie.getGenres()}</p>
+	        <p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'> <strong> Overview </strong> : #{connectedBean.movie.getOverview()} </p>
+	       	<p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Production company </strong> : #{connectedBean.movie.getDataSource()}</p>
+	       
+
+
+
+  </div>
+  
+  <div class="card">
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputText value="Rate the movie :" />
+                <p:rating value="#{connectedBean.rating}">
+                    <p:ajax event="rate" listener="#{connectedBean.onrate}" update="messages" />
+                    <p:ajax event="cancel" listener="#{connectedBean.oncancel}" update="messages" />
+                </p:rating>
+            </h:panelGrid>
+
+      
+        </h:form>
+
+</div>
+					
+					
+					
+					
+					</div>
+					</div>
+					</div>
+					</div>
+<br></br>
+<br></br>
+ 
+
+
+<ui:include src="./footer.xhtml"/>
+</h:body>
+</html>

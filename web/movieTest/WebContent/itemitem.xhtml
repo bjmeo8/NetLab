@@ -49,12 +49,12 @@
 <ui:repeat value="#{connectedBean.movies}" var="value">
   <section>
     <div class="text">
-      <h:graphicImage url="./resources/images/netflix-image.jpg" style = "width : 230px; height :345px;" />
-      <p>#{value}</p>
+      <h:graphicImage url="#{value.poster_path}" style = "width : 230px; height :345px;" />
+      <p>#{value.title}</p>
       	<h:form>      	
 		<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
 		
-		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value}"/>
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
 		
 		</h:commandLink>
 				

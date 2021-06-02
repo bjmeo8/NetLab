@@ -26,8 +26,8 @@ public class ConnectedBean {
 	private Movie movie;
 	private String valButton;
 	private Integer rating;
-	private ArrayList<String> itemItem ;
-	private ArrayList<String> movies;
+	private ArrayList<Movie> itemItem ;
+	private ArrayList<Movie> movies;
 
 	public ConnectedBean() {
 		super();
@@ -42,7 +42,7 @@ public class ConnectedBean {
 	
 
 
-	public ConnectedBean(Movie movie, String valButton, Integer rating, ArrayList<String> itemItem) {
+	public ConnectedBean(Movie movie, String valButton, Integer rating, ArrayList<Movie> itemItem) {
 		super();
 		this.movie = movie;
 		this.valButton = valButton;
@@ -74,23 +74,35 @@ public class ConnectedBean {
 	
 	
 	
-	public ArrayList<String> getMovies() {
+	public ArrayList<Movie> getMovies() {
 		return movies;
 	}
 
 
-	public void setMovies(ArrayList<String> movies) {
+	public void setMovies(ArrayList<Movie> movies) {
 		this.movies = movies;
 	}
 
 
 	public String getMovieInfos() {
+		System.out.println("hi am hehre");
 		System.out.println(valButton);
 		setValButton(Persistance.getMovieinfo(valButton).getTitle());
 		setMovie(Persistance.getMovieinfo(valButton));
 		return "movieInfo";
 		
 	}
+	
+	public String getMovieInfos2() {
+		System.out.println("hi am hehre2");
+		System.out.println("8888888" + valButton);
+		setValButton(Persistance.getMovieinfo(valButton).getTitle());
+		System.out.println("6666666666 : "+ this.valButton );
+		setMovie(Persistance.getMovieinfo(valButton));
+		return "movieInfo2";
+	}
+	
+	 
 
 
 	public Integer getRating() {
@@ -104,12 +116,12 @@ public class ConnectedBean {
 	
 	
 
-    public ArrayList<String> getItemItem() {
+    public ArrayList<Movie> getItemItem() {
 		return itemItem;
 	}
 
 
-	public void setItemItem(ArrayList<String> itemItem) {
+	public void setItemItem(ArrayList<Movie> itemItem) {
 		this.itemItem = itemItem;
 	}
 
@@ -141,19 +153,20 @@ public class ConnectedBean {
     
     public String useAlgoItemItem() throws SQLException, IOException {
     	System.out.println("-------------------------------------------");
-    	ArrayList<String> tab = new ArrayList<String>();
+    	ArrayList<Movie> tab = new ArrayList<Movie>();
     	int  userId = Integer.parseInt(SessionUtils.getUserId());
     	System.out.println("------------------"+ userId + "-----------------");
     	tab = Persistance.getAallMovieOfUser2(userId) ;
+    	
     	setItemItem(Persistance.getAallMovieOfUser2(userId)); 	
     	//return tab;
     	String history = "";
     	for (int i = 0; i < this.itemItem.size(); i++) {
     		if (itemItem.size()- i == 1) {
-    		history = history +  this.itemItem.get(i);
+    		history = history +  this.itemItem.get(i).getTitle();
     		}
     		else {
-    		history = history +  this.itemItem.get(i)+ ",";
+    		history = history +  this.itemItem.get(i).getTitle()+ ",";
     		}
 		}
     	//System.out.println("this is history"+ history);
@@ -171,14 +184,18 @@ public class ConnectedBean {
 
     	 
     	 List<String> myList = new ArrayList<String>(Arrays.asList(replace2.split(",")));
-    	 System.out.println("---" +myList.get(0).trim()+ "-----");
-    	 this.movies = new ArrayList<String>();
+    	 //System.out.println("---" +myList.get(0).trim()+ "-----");
+    	 this.movies = new ArrayList<Movie>();
     	 for (int i = 0; i< myList.size();i++) {
     		 //myList.get(i).trim();
-        	 Movie movie = Persistance.getMovieBytitle(myList.get(i).trim());
-        	 System.out.println(movie.getTitle());
-        	 this.movies.add(movie.getTitle());
-
+    		 String title = myList.get(i).trim();
+    		 //System.out.println("&&&&&&&&&&&&&  "+ title + "   &&&&&&&&&&&&&&");
+    		 String re = title.replaceAll("'", "\\\\'");
+    		 System.out.println("=============="+re+"=============");
+        	 Movie movie = Persistance.getMovieBytitle(re);
+        	 //System.out.println(movie.getTitle());
+        	 this.movies.add(movie);
+        	 //Tropa de Elite (troupe d'élite)
     	 }
     	 
 
