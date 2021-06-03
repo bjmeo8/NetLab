@@ -284,7 +284,6 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5):
 
         # fetch the user movies and his similar user movies
         u_movies = get_user_movies(user_id, rth)
-        print(u_movies)
         # sort by descending
         u_movies.sort()
         u_movies.reverse()
@@ -329,5 +328,5 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5):
     else:
         return "No Recommendation!"
 
-top_recommendation = make_recommendation("0", "kaggle", 3, 0, "none", 0.5)
+top_recommendation = make_recommendation("121", "kaggle", 3, 0, "none", 0.5)
 print(top_recommendation)
