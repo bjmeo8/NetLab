@@ -165,11 +165,6 @@ def create_users_items_matrix(source,size,field):
         mindex = get_movie_index(movie_id)
         users_items_matrix[uindex][mindex] = rating if uindex != -1 and mindex != -1 else 0
 
-    # save our data by precaution
-    # save_dataset(users_items_matrix,"../final_data/collaborative/users_items_matrix.pk")
-    # save_dataset(users_id,"../final_data/collaborative/users_id.pk")
-    # save_dataset(movies_id,"../final_data/collaborative/movies_id.pk")
-
     return users_items_matrix
 
 
@@ -213,10 +208,6 @@ def create_users_users_matrix(source, size, field, th=0.5):
 
         #we set the similarity dict with the current user id and his list of similar user
         similarity[ui] = sim_users
-
-    # we store our data by precaution because the execution an be too long
-    # save_dataset(users_users_matrix,"../final_data/collaborative/users_users_matrix.pk")
-    # save_dataset(similarity,"../final_data/collaborative/similarity.pk")
 
     # finally we return both users_users_matrix and the similarity dict
     return users_users_matrix , similarity
@@ -268,31 +259,17 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5):
     # list of recommendation
     top_movies = set()
     top_recommendation = set()
-    
-    # show similarity dict
-    # for sim in similarity:
-    #     print(str(sim) +":"+ str(similarity[sim]))
 
-    # print("-------------Similar users to {}--------------".format(user_id))
     # get the user similarity
     user_sim = similarity[user_id] if similarity.get(user_id) is not None else []
-    # print("user_sim : ", user_sim if user_sim != -1 else "No similar users are founded")
 
     if len(user_sim) > 0:
-        
-        # print("--------------------User movies---------------------")
 
         # fetch the user movies and his similar user movies
         u_movies = get_user_movies(user_id, rth)
         # sort by descending
         u_movies.sort()
         u_movies.reverse()
-        
-        # since the user movies is a list of tuple, we show each movie rating and his title
-        # for m in u_movies:
-        #     print(m[1] + " : " + str(m[0]))
-        
-        # print("-----------Similar movies to user movies-----------")
 
         # merge all similars movies in order to sort them by ratings
         movies = []
