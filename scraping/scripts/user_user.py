@@ -1,4 +1,3 @@
-
 from utils import *
 import numpy as np
 import pickle as pk
@@ -30,7 +29,7 @@ def get_user_index(usr_id):
     """
     return users_id.index(usr_id) if usr_id in users_id else -1
 
-def to_list(entry):
+def to_list(entry,index):
     """
     this is a custom 
     list converter that
@@ -41,7 +40,7 @@ def to_list(entry):
     """
     out = []
     for e in entry:
-        out.append(e[1])
+        out.append(e[index])
     return out
 
 def get_ids(source):
@@ -166,11 +165,6 @@ def create_users_items_matrix(source,size,field):
         mindex = get_movie_index(movie_id)
         users_items_matrix[uindex][mindex] = rating if uindex != -1 and mindex != -1 else 0
 
-    # save our data by precaution
-    save_dataset(users_items_matrix,"../final_data/collaborative/users_items_matrix.pk")
-    save_dataset(users_id,"../final_data/collaborative/users_id.pk")
-    save_dataset(movies_id,"../final_data/collaborative/movies_id.pk")
-
     return users_items_matrix
 
 
@@ -215,10 +209,6 @@ def create_users_users_matrix(source, size, field, th=0.5):
         #we set the similarity dict with the current user id and his list of similar user
         similarity[ui] = sim_users
 
-    # we store our data by precaution because the execution an be too long
-    save_dataset(users_users_matrix,"../final_data/collaborative/users_users_matrix.pk")
-    save_dataset(similarity,"../final_data/collaborative/similarity.pk")
-
     # finally we return both users_users_matrix and the similarity dict
     return users_users_matrix , similarity
 
@@ -237,7 +227,22 @@ def get_user_movies(user_id, th=0):
 
     return list(movies)
 
-def make_recommendation(user_id, source, rth, size, field, th=0.5, out_format="display"):
+def get_user_movies_bis(user_id):
+    """
+    Allow to get the user movies
+    @user_id : the given user id
+    @th : the default rating threshold value
+    """
+    movies = set()
+    query = ("SELECT DISTINCT title,rating FROM rating,movie WHERE rating.user_id = {} AND movie.movie_id = rating.movie_id".format(tmp + user_id + tmp))
+    cursor.execute(query)
+
+    for title,rating in cursor:
+        movies.add((rating,title))
+
+    return list(movies)
+
+def make_recommendation(user_id, source, rth, size, field, th=0.5):
     """
     Allow to make a recommendation for 
     a given user and other parameters
@@ -247,8 +252,6 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5, out_format="d
     @size : the data size (users size or movies size)
     @field : to set a desired size for user or movie only (movies or users)
     @th : the default cosine similarity threshold value
-    @out_format : the return format get(mean the function will return the top recommendantion)
-    and the display(mean the function will only shows the top recommendation)
     """
     # compute users_users_matrix and users similarity
     users_users_matrix , similarity = create_users_users_matrix(source, size, field, th)
@@ -256,33 +259,20 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5, out_format="d
     # list of recommendation
     top_movies = set()
     top_recommendation = set()
-    
-    # show similarity dict
-    # for sim in similarity:
-    #     print(str(sim) +":"+ str(similarity[sim]))
 
-    # print("-------------Similar users to {}--------------".format(user_id))
     # get the user similarity
-    user_sim = similarity[user_id] if similarity.get(user_id) is not None else -1
-    # print("user_sim : ", user_sim if user_sim != -1 else "No similar users are founded")
+    user_sim = similarity[user_id] if similarity.get(user_id) is not None else []
 
-    if user_sim != -1 or user_sim is not None:
-        
-        # print("--------------------User movies---------------------")
+    if len(user_sim) > 0:
 
         # fetch the user movies and his similar user movies
         u_movies = get_user_movies(user_id, rth)
         # sort by descending
         u_movies.sort()
         u_movies.reverse()
-        
-        # since the user movies is a list of tuple, we show each movie rating and his title
-        # for m in u_movies:
-        #     print(m[1] + " : " + str(m[0]))
-        
-        # print("-----------Similar movies to user movies-----------")
 
         # merge all similars movies in order to sort them by ratings
+        movies = []
         for sim_id in user_sim:
             # get each similar user movies
             movies = get_user_movies(sim_id, rth)
@@ -298,37 +288,22 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5, out_format="d
         for m in movies:
             if m not in u_movies:
                 top_movies.add(m)
+
+        # make a conversion from list of tuple to list of movies only
+        u_movies_list = to_list(u_movies,1)
+        top_movies_list = to_list(top_movies,1)
+
+        for tm in top_movies_list:
+            if tm not in u_movies_list:
+                top_recommendation.add(tm)
+        
+        close_conn()
+        
+        return list(top_recommendation)
     
     # if some error appear
     else:
-        print("Recommendation Error : This user is not in the selected dataset or is not in the database or we can't make him any recommendations!")
+        return "No Recommendation!"
 
-    # make a conversion from list of tuple to list of movies only
-    u_movies_list = to_list(u_movies)
-    top_movies_list = to_list(top_movies)
-
-    print("------------Top movies------------")
-    for tm in top_movies_list:
-        if tm not in u_movies_list:
-            top_recommendation.add(tm)
-    
-    close_conn()
-    
-    if out_format == "display":
-        for tr in top_recommendation:
-            print(tr)
-    elif out_format == "get":
-        return top_recommendation
-
-def predict_recommendation(user_id, source, rth, size, field, th=0.5):
-    users_items_matrix = load_dataset("../final_data/collaborative/users_items_matrix.pk")
-    users_users_matrix = load_dataset("../final_data/collaborative/users_users_matrix.pk")
-    for i in users_users_matrix:
-        print(i)
-
-# make recommendation
-top_recommendation = make_recommendation("121", "kaggle", 3, 0, "none", 0.5, "display")
+top_recommendation = make_recommendation("121", "kaggle", 3, 0, "none", 0.5)
 print(top_recommendation)
-
-# tests
-# predict_recommendation("121", "kaggle", 2, 0, "none")
