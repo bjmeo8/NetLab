@@ -158,15 +158,15 @@ def test_relevance(source):
 
 # ---------------------- Execution Example ---------------------- #
 
-user_id = '196'
-source = 'kaggle'
+user_id = 'Z20181009175130748676741'
+source = 'allocine'
 
 if source == 'kaggle' :
     title_list = np.load('titles_kaggle.npy').tolist()
     item_item_matrix = np.load('matrix_kaggle.npy')
-else : 
-    title_list = np.load('titles.npy').tolist()
-    item_item_matrix = np.load('matrix.npy')
+elif source == 'allocine' : 
+    title_list = np.load('titles_allocine.npy').tolist()
+    item_item_matrix = np.load('matrix_allocine.npy')
     
 history = get_user_history(user_id, source)
 recommendation, votes, first_movie, first_rec = get_recommendations_history(history, item_item_matrix, title_list)

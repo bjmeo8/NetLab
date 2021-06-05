@@ -224,7 +224,7 @@ source = 'kaggle'
 if source == 'kaggle' :
     user_user_matrix_output_file = "user_user_kaggle.pkl"
     similarity_output_file = "similarity_kaggle.pkl"
-else : 
+elif source == 'allocine' : 
     user_user_matrix_output_file = "user_user_allocine.pkl"
     similarity_output_file = "similarity_allocine.pkl"
     

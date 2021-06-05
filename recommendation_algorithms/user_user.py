@@ -71,7 +71,7 @@ def make_recommendation(user_id, source, rth, size, field, th=0.5):
     if source == 'kaggle' :
         user_user_file = open('user_user_kaggle.pkl', 'rb')
         similarity_file = open('similarity_kaggle.pkl', 'rb')
-    else : 
+    elif source == 'allocine' : 
         user_user_file = open('user_user_allocine.pkl', 'rb')
         similarity_file = open('similarity_allocine.pkl', 'rb')
         

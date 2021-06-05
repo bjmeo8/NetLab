@@ -74,4 +74,14 @@ def exec_time_graph():
     plt.title("Evolution of the matrix's calculation time compared to the amount of movie")
     plt.show()
 
-createItemItemMatrix(1000, "titles1.npy","matrix1.npy",'kaggle')
+source = 'kaggle'
+
+if source == 'kaggle' :
+    titles_output_file = "titles_kaggle.npy"
+    matrix_output_file = "matrix_kaggle.npy"
+elif source == 'allocine' : 
+    titles_output_file = "titles_allocine.npy"
+    matrix_output_file = "matrix_allocine.npy"
+    
+
+createItemItemMatrix(1000, titles_output_file, matrix_output_file, source)
