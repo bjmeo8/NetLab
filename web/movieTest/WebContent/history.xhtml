@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>History of user</title>
+	<style>
+.grid { 
+  margin-left : 30px;
+  margin-right: 30px;
+  padding-block: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  align-items: stretch;
+  }
+.grid > section {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+.grid > section img {
+  max-width: 100%;
+}
+.text {
+  padding: 0 20px 20px;
+}
+
+.ButtonStyle {
+    border: 1px solid #000;
+    padding: 0 61px 11px 39px;
+    color: #e6e6e6;
+    background-color: #313131;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline;
+    cursor: pointer;
+    width: 200px;
+    
+  }  
+    
+.global{
+ 	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./resources/images/casa.jpg);
+
+ }  
+    
+    
+    
+</style>
+	
+
+</h:head>
+
+<ui:include src="./header.xhtml" />
+<h:body class = "global">
+<main class="grid">
+<ui:repeat value="#{connectedBean.history}" var="value">
+  <section>
+    <div class="text">
+      <h:graphicImage url="#{value.poster_path}" style = "width : 230px; height :345px;" />
+      <p style = "color : white">#{value.title}</p>
+      	<h:form>      	
+		<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
+		
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
+		
+		</h:commandLink>
+				
+	</h:form>
+    </div>
+  </section>
+  </ui:repeat>
+</main>
+
+
+	<ui:include src="./footer.xhtml" />
+</h:body>
+</html>

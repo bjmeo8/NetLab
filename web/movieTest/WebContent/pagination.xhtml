@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>Movies</title>
+
+<style>
+ .global{
+ 	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./resources/images/casa.jpg);
+
+ }
+ 
+ .movie card{
+ background-color: red;
+ }
+ 
+</style>
+
+
+
+
+</h:head>
+<ui:include src="./header.xhtml"/>
+
+<h:body class = "global">
+
+<div class="movie card" style = "background-color: #11ffee00;">
+    <h:form id="form" style = "background-color: #11ffee00;">
+        <p:dataGrid style = "background-color: #11ffee00;" var="movie" value="#{loginBean.moviesList}" columns="3" layout="grid"
+                    rows="12" paginator="true" id="cars"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    rowsPerPageTemplate="6,12,16">
+
+            <f:facet  name="header">
+                Movies to watch
+            </f:facet>
+
+            <div class="movie-grid-item card" style="margin-bottom: 0;background-color: #11ffee00; " >
+                <div class="movie-grid-item-top" style = "background-color: #11ffee00; " >
+                    <div style = "background-color: orange">
+                        <i class="pi pi-tag movie-category-icon"/>
+                        <span class="movie-category">#{movie.title}</span>
+                    </div>
+                </div>
+                <div class="movie-grid-item-content">
+                    <h:graphicImage url="#{movie.poster_path}"  style = "width : 200px; height :300px;" />
+                    <div class="movie-name">#{movie.title}</div>
+                    <div class="movie-description">#{movie.dataSource}</div>
+                </div>
+                <div class="movie-grid-item-bottom" style = "background-color: #11ffee00;">
+                    <h:outputText value="#{movie.title}">
+                    </h:outputText>
+<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
+
+<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{movie.title}"/>
+
+</h:commandLink>
+                </div>
+            </div>
+
+        </p:dataGrid>
+    </h:form>
+</div>
+
+
+
+
+<ui:include src="./footer.xhtml"/>
+</h:body>
+</html>
