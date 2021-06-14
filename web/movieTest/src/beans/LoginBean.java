@@ -81,8 +81,11 @@ public class LoginBean implements Serializable {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", username);
 			session.setAttribute("userid", userid);
+	        String realUser = Persistance.getRealUserID(userid);
+	        String source = Persistance.getuserType(realUser);	
+	        System.out.println(source);
 			//String genre = Persistance.getGenre(username);
-			setMoviesList(Persistance.getMoviesOfUser());
+			setMoviesList(Persistance.getMoviesOfUser(source,6000));
 			return "connected";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
@@ -97,7 +100,7 @@ public class LoginBean implements Serializable {
 	
 
 	//logout event, invalidate session
-	public String logout() {
+	public String logoutt() {
 		HttpSession session = SessionUtils.getSession();
 		session.invalidate();
 		return "login";

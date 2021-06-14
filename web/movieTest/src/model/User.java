@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String mail;
     private String genres;
+    private String user_type;
 	public User(int id, String name, String password, String mail, String genres) {
 		super();
 		this.id = id;
@@ -49,6 +50,16 @@ public class User {
 	}
 	public void setGenres(String genres) {
 		this.genres = genres;
+	}
+	
+	
+	
+	
+	public String getUser_type() {
+		return user_type;
+	}
+	public void setUser_type(String user_type) {
+		this.user_type = user_type;
 	}
 	@Override
 	public String toString() {

@@ -10,30 +10,19 @@
 <h:head>
 	<title>singup</title>
 
-	<link rel="icon" type="image/png" href="./images/netflix-image.jpg" />
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/bootstrap/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/animate/animate.css" />
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/css-hamburgers/hamburgers.min.css" />
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/animsition/css/animsition.min.css" />
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/select2/select2.min.css" />
-	<link rel="stylesheet" type="text/css"
-		href="./resources/vendor/daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" type="text/css" href="./resources/css/util.css" />
-	<link rel="stylesheet" type="text/css" href="./resources/css/main.css" />
+	
+	<link rel="stylesheet" type="text/css" href="./resources/css/style33.css" />
+	
+	
 </h:head>
 <h:body>
 
 
-
+  
 	<div class="limiter">
-		<div class="container-login100"
-			style="background-image: url('./resources/images/netflix-image.jpg');">
+	
+		<div class="container-log">
+			 <div class="ic-log"> <i class="fa fa-user icon"></i> </div>
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41"> Account sign up </span>
 
@@ -42,7 +31,6 @@
 						data-validate="Enter username">
 						<h:inputText name="username" id="username" class="input100"
 							type="text" p:placeholder="your user name" value="#{signBean.name}" />
-
 					</div>
 
 
@@ -59,17 +47,22 @@
 							name="pass" p:placeholder="your mail" value="#{signBean.mail}" />
 					</div>
 
-					
+
+
 					<div class="wrap-input100 validate-input">
 						<h:selectOneMenu class="input100"
 									value="#{signBean.genres}">
 									<f:selectItem class="input100" itemLabel="Catégorie de site" />
-									<f:selectItem class="input100" itemValue="action" itemLabel="action" />
-									<f:selectItem class="input100" itemValue="adventure" itemLabel="adventure" />
-									<f:selectItem class="input100" itemValue="Comedy" itemLabel="Comedy" />
+									<f:selectItem class="input100" itemValue="allocine" itemLabel="allocine" />
+									<f:selectItem class="input100" itemValue="kaggle" itemLabel="kaggle" />
+<!-- 									<f:selectItem class="input100" itemValue="Comedy" itemLabel="Comedy" /> -->
 						
 						</h:selectOneMenu>
 					</div>
+
+
+					
+					
 
 								
 								<span class="select-arrow"></span>
@@ -84,16 +77,23 @@
 						
 				<div class="container-login100-form-btn m-t-32">
 
-							<h:link  class="login100-form-btn"
-								value = "login" outcome = "login.xhtml" />
+							<h:link  class="login100-form-btn" value = "login" outcome = "login.xhtml" />
 						</div>		
 						
 				</h:form>
 				
 				
 			</div>
-		</div>
-	</div>
-
+			
+		</div> 
+		
+	</div> 
+	<div class="container-login100">
+		<div class="slideshow-image" style="background-image: url('./resources/images/img1.jpg')"><h3 style="color:red;">Little brother 2</h3></div>
+  		<div class="slideshow-image" style="background-image: url('./resources/images/img2.jpg')"><h3 style="color:red;">Avatar</h3></div>
+  		<div class="slideshow-image" style="background-image: url('./resources/images/img3.jpg')"><h3 style="color:red;">Huntle</h3></div>
+ 		<div class="slideshow-image" style="background-image: url('./resources/images/img4.jpg')"><h3 style="color:red;">The war 3</h3></div>
+	
+	</div> 
 </h:body>
 </html>

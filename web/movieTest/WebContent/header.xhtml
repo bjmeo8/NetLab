@@ -1,7 +1,11 @@
 <ui:composition 
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"   
+      xmlns:p="http://primefaces.org/ui"  
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+      
+      >
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" > </meta>
@@ -12,7 +16,7 @@
 <link href="./resources/css/rech.css" rel="stylesheet" type="text/css" media="all"> </link>
 <link rel="stylesheet" href="./resources/bootstrap/css/bootstrap.css"  />
 
-
+<!--  
 	<script src="./resources/js/jquerymain.js"></script>
 	<script src="./resources/js/script.js" type="text/javascript"></script>
 	<script type="text/javascript" src="./resources/js/jquery-1.7.2.min.js"></script>
@@ -29,7 +33,7 @@
 	<link rel="stylesheet"  type="text/css"  href="./resources/css/msg.css"> </link>
 	<link rel="stylesheet" type="text/css" href="./resources/css/forme.css"> </link>
 	
-	
+
 	
 <script>
      var check = function() {
@@ -47,9 +51,9 @@
 }
      </script>
 	
+-->		
 	
-	
-	
+<!--  	
 	<style>
 
 .avis {
@@ -99,8 +103,227 @@ summary {
 </style>
 
 
+-->
+	
+
+
+<style>
+
+.btn{
+	border-radius: 40px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: 0;
+	padding: 0;
+	
 
 	
+}
+
+
+.btn li {
+    font-size: 20px;
+    width: 10em;
+    height: 2em;
+    color: red;
+    border-left:1em solid;
+    position: relative;
+    margin-top: 0.8em;
+    cursor: pointer;
+    
+    
+    
+}
+
+
+
+
+.btn li span {
+    position: relative;
+    height: 70%;
+    top: -20%;
+    box-sizing: border-box;
+    border: 0.08em solid;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: cursive;
+    text-transform: capitalize;
+    transform: translateX(calc(-0.15em * 3 - 0.08em * 2));
+    transition: 0.3s;
+    border-radius: 40px;
+    font-size: 20px;
+}
+
+.btn li:hover span {
+    transform: translateX(0.15em);
+}
+
+.navbar ul li a{
+				font-size: 16px;
+				text-transform: capitalize; 
+				color: #bbbbbb;
+				text-decoration: none;
+				font-weight: 300;
+				transition: all 0.3s ease;
+				display: block;
+				font-family: cursive;
+	
+			}
+.navbar ul li a:hover{
+				color: #ffffff;
+				padding-left: 5px;
+				}
+				
+form{
+	margin-right: 150px;
+	
+}
+.fa{
+	color: white;
+	font-size: 20px;
+}
+.search-text{
+	background-color: #7E0000;
+}
+
+.deconnexion{
+	cursor: pointer;
+	margin-left: 37%;
+	font-family: cursive;
+	
+}
+a{
+	text-decoration:none; 
+}
+
+#search_form{
+  position: absolute;
+  transform: translate(-50%,-50%);
+  background-color: #B20000;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+  border-right: 200px;
+  margin-top: 33px;
+  
+
+}
+
+#search_form:hover > .search-text{
+  width: 150px;
+  padding: 0 3px;
+}
+
+#search_form:hover > .search-btn{
+  background: white;
+}
+
+
+.search-text{
+  border:none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+}
+.sear{
+	padding-right: 800px;
+	
+	
+}
+
+
+
+
+
+
+.grid { 
+
+  margin-left : 30px;
+  margin-right: 30px;
+  padding-block: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  align-items: stretch;
+  }
+.grid > section {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  
+}
+body {
+	background-position: center;
+    background-size: cover;
+}
+.grid > section img {
+  max-width: 100%;
+}
+.text {
+  padding: 0 20px 20px;
+}
+
+.ButtonStyle {
+    border: 1px solid #000;
+    padding: 0 61px 11px 39px;
+    color: #e6e6e6;
+    background-color: #313131;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline;
+    cursor: pointer;
+    width: 200px;}
+
+.btn {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #00bcd4;
+    transition: .4s;
+  }
+
+.btn:hover {
+    background: #1ec7bb;
+}
+
+section{
+	background-image: url("./resources/images/space.jpg");
+}
+
+h1{
+	padding-left: 500px;
+	
+	
+}
+.text .im {
+	
+	
+	
+}
+
+.wrap{
+background-color: #11ffee00;
+
+}
+
+
+
+
+
+
+</style>
+
+
+
 
 
 
@@ -115,22 +338,53 @@ summary {
   <div class="wrap">
 		<div class="header_top">
 			<div class="logo">
-			<a   href="https://www.google.com/"><img src="./resources/images/log.png" alt="a"   style="width : 130px; height : 70px  "  /></a>
+			<a   href="https://www.google.com/"><img src="./resources/images/logo8.png" alt="a"   style="width : 130px; height : 70px  "  /></a>
 				
 			</div>
 			  <div class="header_top_right">
-			    <div class="search_box">
+			    
+			    <!-- 
 				     <form action="" method="POST" id="search_form">
               			<input type="text" name="search" id="search" placeholder="search movie"> </input>
 				    </form>
-			    </div>
+				   --> 
+				    <h:form  >  
+					<p:growl id="msgs" showDetail="true" />  
+					<p:outputLabel  value="search: " />  
+					<p:autoComplete style = " z-index: 9999999; color : black" value="#{connectedBean.search}" completeMethod="#{connectedBean.completeTheme}" />
+					<h:commandLink   action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
+
+					<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{connectedBean.search}"/>
+
+					</h:commandLink>
+
+					</h:form> 
+			
+				   
+				   
+				   
+				   
+				   
+				   
+				    		    
+			    
+			    
+			    				    
+				   
+			    
+			    
+			    
+			    
+			    
 			    <div id="result">
                 <ul>
                 </ul>
                 </div>
                 
-                <h:form  class="butonform" action= "#{loginBean.logout}" method="post">
-              <button  class = "btn btn-primary" type="submit" name="logout-submit" style="  float:right;  margin-top: -15px   ">Logout</button>
+                <h:form  class="butonform" >
+               	<h:commandLink class = "btn btn-primary" type="submit" name="logout-submit" style="  float:right;  margin-top: -15px   "  action="#{loginBean.logoutt}"  value="logout" /> 
+                
+<!--               <button  class = "btn btn-primary" type="submit" name="logout-submit" style="  float:right;  margin-top: -15px   ">Logout</button> -->
                 </h:form>
 			
               <button class = "btn btn-success" type="submit"  name="reglageee-submit" style=" float:right; margin-top: -15px    ">#{loginBean.username}</button>
@@ -146,7 +400,22 @@ summary {
 <!-- 	  <li><a href="itemitem.xhtml">item item algo</a> </li> -->
 	  <li> 
 	  <h:form >
-	  		<h:commandLink  action="#{connectedBean.useAlgoItemItem}"  value="item item ALGO" /> 
+	  		<h:commandLink  action="#{connectedBean.useAlgoItemItem}"  value="item item" /> 
+	  </h:form>		
+	  
+	  </li>
+	  
+	  
+	   <li> 
+	  <h:form >
+	  		<h:commandLink  action="#{connectedBean.getHistorique}"  value="history" /> 
+	  </h:form>		
+	  
+	  </li>
+	  
+	  	   <li> 
+	  <h:form >
+	  		<h:commandLink  action="#{connectedBean.useAlgoUserUser}"  value="user user" /> 
 	  </h:form>		
 	  
 	  </li>

@@ -8,15 +8,25 @@
 <h:head>
 	<title>Movie infos</title>
 	
+	<style>
+	 .global{
+ 	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./resources/images/casa.jpg);
+
+ }
+ 
+ 
+	</style>
+	
+	
 </h:head>
 
    <ui:include src="./header.xhtml"/>
-<h:body>
-					<div class="main">
-					<div class="content">
-					<div class="section group">
-					<div class="cont-desc span_1_of_2">
-					<div class="grid images_3_of_2">
+<h:body class = "global">
+					<div class="main" >
+					<div class="content" style = "background-color: #11ffee00;">
+					<div class="section group" style = "background-color: #11ffee00;">
+					<div class="cont-desc span_1_of_2" >
+					<div class="grid images_3_of_2" >
 					<h:graphicImage url="#{connectedBean.movie.getPoster_path()}" style = "width : 300px; height :400px;" />
 					
 					
@@ -27,11 +37,11 @@
 					
 			<div class="product-desc">
 
-			<h2 style = 'font-family: "Arial Black", Gadget, sans-serif;text-transform: uppercase;'> information about the movie</h2>
-			<p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'   > <strong> Title </strong>  : #{connectedBean.movie.getTitle()}</p>
-	        <p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Genre </strong> : #{connectedBean.movie.getGenres()}</p>
-	        <p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'> <strong> Overview </strong> : #{connectedBean.movie.getOverview()} </p>
-	       	<p style = 'margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Production company </strong> : #{connectedBean.movie.getDataSource()}</p>
+			<h2 style = 'color : white;font-family: "Arial Black", Gadget, sans-serif;text-transform: uppercase;'> information about the movie</h2>
+			<p style = 'color : white; margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'   > <strong> Title </strong>  : #{connectedBean.movie.getTitle()}</p>
+	        <p style = 'color : white; margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Genre </strong> : #{connectedBean.movie.getGenres()}</p>
+	        <p style = ' color : white; margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;'> <strong> Overview </strong> : #{connectedBean.movie.getOverview()} </p>
+	       	<p style = ' color : white; margin-left: 20px;font-family: "Courier New", Courier, monospace;   font-size: 18px;  text-transform: uppercase;' > <strong> Production company </strong> : #{connectedBean.movie.getDataSource()}</p>
 	       
 
 

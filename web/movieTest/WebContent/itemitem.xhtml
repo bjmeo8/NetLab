@@ -38,19 +38,28 @@
     display: inline;
     cursor: pointer;
     width: 200px;
+}
+
+.global{
+ 	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./resources/images/casa.jpg);
+
+ }      
+    
+    
+    
 </style>
 	
 
 </h:head>
 
 <ui:include src="./header.xhtml" />
-<h:body>
+<h:body class = "global">
 <main class="grid">
 <ui:repeat value="#{connectedBean.movies}" var="value">
   <section>
     <div class="text">
       <h:graphicImage url="#{value.poster_path}" style = "width : 230px; height :345px;" />
-      <p>#{value.title}</p>
+      <p style = "color : white">#{value.title}</p>
       	<h:form>      	
 		<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
 		
