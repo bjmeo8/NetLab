@@ -31,6 +31,69 @@ public class ConnectedBean {
 	private ArrayList<Movie> movies;
 	private ArrayList<Movie> history;
 	private ArrayList<Movie> userUser;
+	private ArrayList<Movie> dramMovie;
+	private ArrayList<Movie> comedyMovie;
+	private ArrayList<Movie> adventureMovie;
+	private ArrayList<Movie> actionMovie;
+	private ArrayList<Movie> poropo;
+	
+	
+
+
+
+
+	
+
+
+	public ArrayList<Movie> getComedyMovie() {
+		return comedyMovie;
+	}
+
+
+	public void setComedyMovie(ArrayList<Movie> comedyMovie) {
+		this.comedyMovie = comedyMovie;
+	}
+
+
+	public ArrayList<Movie> getAdventureMovie() {
+		return adventureMovie;
+	}
+
+
+	public void setAdventureMovie(ArrayList<Movie> adventureMovie) {
+		this.adventureMovie = adventureMovie;
+	}
+
+
+	public ArrayList<Movie> getActionMovie() {
+		return actionMovie;
+	}
+
+
+	public void setActionMovie(ArrayList<Movie> actionMovie) {
+		this.actionMovie = actionMovie;
+	}
+
+
+	public ArrayList<Movie> getDramMovie() {
+		return dramMovie;
+	}
+
+
+	public void setDramMovie(ArrayList<Movie> dramMovie) {
+		this.dramMovie = dramMovie;
+	}
+
+
+	public ArrayList<Movie> getPoropo() {
+		return poropo;
+	}
+
+
+	public void setPoropo(ArrayList<Movie> poropo) {
+		this.poropo = poropo;
+	}
+
 
 	public ConnectedBean() {
 		super();
@@ -166,8 +229,7 @@ public class ConnectedBean {
 
 	public void onrate(RateEvent rateEvent) throws Exception {
     	System.out.println("hahahahahahahahahahahah");
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rate Event", "You rated:" + ((Integer) rateEvent.getRating()).intValue());
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        
         System.out.println(((Integer) rateEvent.getRating()).intValue());
         System.out.println(SessionUtils.getUserName());
         System.out.println(movie.getTitle());
@@ -186,7 +248,18 @@ public class ConnectedBean {
         String realIdMovie = Persistance.getRealMovieID(movieID);
         
         Persistance.persistRating(realUser, realIdMovie, rating,movie.getDataSource());
+        
+        int  userId2 = Integer.parseInt(SessionUtils.getUserId());
+    	System.out.println("------------------"+ userId + "-----------------");
+    	String source2 = Persistance.getuserSource(userId2);
+    	System.out.println("avant creation1");
+    	String matrixreCration = getuserUserMatrix(source2);
+    	System.out.println(matrixreCration);
+    	System.out.println("after creation2");
+
         System.out.println("ya khrrrrrrrrrrrrrrraaaaaaaa");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Rate Event", "You rated:" + ((Integer) rateEvent.getRating()).intValue());
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public void oncancel() {
@@ -290,6 +363,36 @@ public class ConnectedBean {
 	    	  return x;
     }
     
+    private  String getuserUserMatrix(String source) throws IOException {
+		String arg1 = source;
+	    String[] cmd = {
+	    	      "python",
+	    	      "D:\\PYTHON IDE\\\\communicationJAVAPYthon\\user_user_matrix_creation.py",
+	    	      arg1
+	    	    };
+	    	  //Runtime.getRuntime().exec(cmd);	 
+	    	  Runtime r = Runtime.getRuntime();
+	    	  Process p = r.exec(cmd);
+	    	  BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	    	  BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+	    	  String rr= "";
+	    	  String s = "";
+	    	  String x = "";
+	    	  while((s = in.readLine()) != null || (rr = error.readLine()) != null ){
+	    	      //System.out.println(s);
+	    	      x = s ;
+	    	      
+	    	    //  System.out.println(rr);
+	    	      }
+	    	  return x;
+    }
+    
+    
+    
+    
+    
+    
+    
     public String getHistorique() throws Exception {
     	String  userId = SessionUtils.getUserId();
     	int userIDInt = Integer.parseInt(userId);
@@ -311,6 +414,15 @@ public class ConnectedBean {
     private String getRocoUserUser(String iduser, String source) throws IOException {
     	String arg1 = iduser;
     	String arg2 = source;
+    	System.out.println("----le idUser----" + iduser);
+    	System.out.println("-------la source----" + source);
+    	
+    	
+    	
+    	
+    	
+    	
+
     	   String[] cmd = {
     	         "python",
     	         "D:\\PYTHON IDE\\communicationJAVAPYthon\\user_user.py",
@@ -337,10 +449,12 @@ public class ConnectedBean {
         System.out.println("-------------------------------------------");
         String  userId = SessionUtils.getUserId();
         String source = Persistance.getSource(userId);
+        int useruserID = Integer.parseInt(userId);
+        String realUser = Persistance.getRealUserID(useruserID);
         System.out.println("------------------"+ userId + "-----------------");
 
         System.out.println("------------------"+ source + "-----------------");
-        String rocoMovie = getRocoUserUser(userId, source);
+        String rocoMovie = getRocoUserUser(realUser, source);
         System.out.println(rocoMovie+"test");
        
         if (rocoMovie.equals("No Recommendation!")) {
@@ -352,11 +466,11 @@ public class ConnectedBean {
 
         List<String> myList = new ArrayList<String>(Arrays.asList(rocoMovie.split(";")));
         this.userUser = new ArrayList<Movie>();
-        for (int i = 0; i< myList.size();i++) {
+        for (int i = 1; i< myList.size();i++) {
         String title = myList.get(i).trim();
-        String re = title.replaceAll("'", "\\\\'");
-        System.out.println("=============="+re+"=============");
-            Movie movie = Persistance.getMovieBytitle(re);
+        //String re = title.replaceAll("'", "\\\\'");
+        //System.out.println("=============="+re+"=============");
+            Movie movie = Persistance.getMovieBytitle(title);
             System.out.println(movie.getTitle()+"smya dlfilm");
             this.userUser.add(movie);    
             //Tropa de Elite (troupe d'élite)
@@ -411,12 +525,116 @@ public class ConnectedBean {
             }
         
         
-        public List<String> completeTheme(String query) throws SQLException {
+        
+        public void useAlgoItemItem3() throws Exception {
+//            int  userId = Integer.parseInt(SessionUtils.getUserId());
+//            System.out.println("------------------"+ userId + "-----------------");
+//            String source = Persistance.getSource(userid);
+//            String stringUserID = String.valueOf(userId);
+//            String realUser = Persistance.getRealUserID(userId);
+//            System.out.println("============" + realUser + "==========");
+//            String rocoMovie = getRoco(realUser,source);
+        	
+        	int  userId = Integer.parseInt(SessionUtils.getUserId());
+        	System.out.println("------------------"+ userId + "-----------------");
+        	String source = Persistance.getuserSource(userId);
+        	//System.out.println();
+
+        	
+        	
+        	
+        	
+        	
+        	
+        	//System.out.println("khra finale " + valButton);
+    		String arg1 = valButton;
+    		String arg2 = source;
+    	    String[] cmd = {
+    	    	      "python",
+    	    	      "D:\\PYTHON IDE\\communicationJAVAPYthon\\last_item_item.py",
+    	    	      arg1,arg2
+    	    	    };
+    	    	  //Runtime.getRuntime().exec(cmd);	 
+    	    	  Runtime r = Runtime.getRuntime();
+    	    	  Process p = r.exec(cmd);
+    	    	  BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    	    	  BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    	    	  String rr= "";
+    	    	  String result ="";
+    	    	  String s = "";
+    	    	  while((s = in.readLine()) != null || (rr = error.readLine()) != null ){
+    	    	      //System.out.println(s);
+    	    	      result = s;
+    	    	      
+    	    	     // System.out.println(rr);
+    	    	      }
+    	    	  
+    	    	  
+    	    	  System.out.println(result);
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+
+    	   ArrayList<Movie> arry = new ArrayList<Movie>();
+           
+            List<String> myList = new ArrayList<String>(Arrays.asList(result.split(";")));
+            this.movies = new ArrayList<Movie>();
+            this.poropo = new ArrayList<Movie>();
+            for (int i = 1; i< myList.size();i++) {
+            
+            String title = myList.get(i).trim();
+            
+            System.out.println("===le titile==========="+title+"=============");
+                Movie movie = Persistance.getMovieBytitle(title);
+                System.out.println(movie);
+                //System.out.println(movie.getTitle());
+                this.poropo.add(movie);
+                arry.add(movie);
+                //Tropa de Elite (troupe d'élite)
+            }
+           
+            setPoropo(arry);
+           System.out.println("hak chouf size" +poropo.size());
+           
+           
+           
+           //return arry;
+           
+           
+           
+           
+           
+            }
+        
+        public String doublefunc() throws Exception {
+        	
+        	useAlgoItemItem3();
+        	return getMovieInfos();
+        }
+        
+        
+        
+        
+        
+        
+        
+        public List<String> completeTheme(String query) throws Exception {
+        	int  userId = Integer.parseInt(SessionUtils.getUserId());
+        	System.out.println("------------------"+ userId + "-----------------");
+        	String source = Persistance.getuserSource(userId);
+        	
+        	
             System.out.println(query);
             System.out.println("rani hna ");
                 String queryLowerCase = query.toLowerCase();
                 System.out.println("rani hna ");
-                ArrayList<Movie> allThemes =Persistance.getMovies(query);
+                ArrayList<Movie> allThemes =Persistance.getMovies(query,source);
                 System.out.println("rani hna ");
                 ArrayList<String> listitle = new ArrayList<>();
                 System.out.println("rani hna ");
@@ -427,6 +645,34 @@ public class ConnectedBean {
                 return listitle.stream().filter(t -> t.toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
 
             }
+        
+        
+        
+        
+        
+        public String displaymovieGenre() throws Exception {
+        	int  userId = Integer.parseInt(SessionUtils.getUserId());
+        	System.out.println("------------------"+ userId + "-----------------");
+        	String source = Persistance.getuserSource(userId);
+        	 ArrayList<Movie> moviesdram = Persistance.getMoviesOfGenre(source,5000,"dram",40);
+        	 ArrayList<Movie> moviescom = Persistance.getMoviesOfGenre(source,5000,"com",40);
+        	 ArrayList<Movie> moviesaventure = Persistance.getMoviesOfGenre(source,5000,"venture",40);
+        	 ArrayList<Movie> moviesAction = Persistance.getMoviesOfGenre(source,5000,"action",40);
+
+        	 dramMovie = new ArrayList<Movie>();
+        		 comedyMovie= new ArrayList<Movie>(); 
+        		 adventureMovie= new  ArrayList<Movie>();
+        		 actionMovie = new ArrayList<Movie>();
+
+        	 setDramMovie(moviesdram);
+        	 setComedyMovie(moviescom);
+        	 setAdventureMovie(moviesaventure);
+        	 setActionMovie(moviesAction);
+        	 
+        	 
+        	
+        	return "movieGenre";
+        }
 
 
     

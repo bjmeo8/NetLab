@@ -1,0 +1,332 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Movie by genre</title>
+	
+	<link href="./resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"> </link>
+		<link href="./resources/css/styleSlide.css" rel="stylesheet" type="text/css" media="all"> </link>
+	
+	<script src="./resources/js/index1.js"></script>
+	
+	
+	
+	<style>
+	 .global{
+ 	background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(./resources/images/casa.jpg);
+
+ }
+ 
+ 
+	</style>
+	
+	
+</h:head>
+
+   <ui:include src="./header.xhtml"/>
+<h:body class = "global">
+					<div class="main" >
+					<div class="contain">
+
+
+  <div class="slider">
+      <h3 style = "color : white;">Drama Movies</h3>
+      <span onmouseover="scrollEsquerda()" onmouseout="clearScroll()" class="handle handlePrev active">
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+      </span>
+      
+
+      <div id="scroller" class="row">
+      
+        <div class="row__inner">
+      <ui:repeat value="#{connectedBean.dramMovie}" var="value">
+
+          <div class="gui-card">
+            <div class="gui-card__media">
+          <a   href="http://localhost:8080/movieTest/connected.jsf">     <h:graphicImage class="gui-card__img" url="#{value.poster_path}" style = "width : 230px; height :345px;" /> </a>
+            
+           <!--     <img class="gui-card__img" src="https://img1.ibxk.com.br/2015/11/12/12134915138723.jpg?w=700" alt=""  />  -->
+            </div>
+            <div class="gui-card__details">
+              <div class="gui-card__title" style = "color : white;">
+              <!--  <p style = "color : white">  #{value.getTitle()} </p> -->
+              <h:form> 
+              <h:commandLink  action="#{connectedBean.doublefunc}"  value="#{value.getTitle()}" >
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
+		
+		</h:commandLink>
+		</h:form>
+              
+              
+              
+              
+              </div>
+            </div>
+          </div>
+          </ui:repeat>
+
+        </div>
+
+      </div>
+      <span onmouseover="scrollDireita()" onmouseout="clearScroll()"  class="handle handleNext active">
+       <a   href="http://localhost:8080/movieTest/connected.jsf"> <i class="fa fa-caret-right" aria-hidden="true"></i> </a>
+      </span>
+    </div>
+    
+    
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+     
+    
+    
+    
+    
+      <div class="slider">
+      <h3 style = "color : white;">Comedy Movies</h3>
+      <span onmouseover="scrollEsquerda()" onmouseout="clearScroll()" class="handle handlePrev active">
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+      </span>
+      
+
+      <div id="scroller" class="row">
+      
+        <div class="row__inner">
+      <ui:repeat value="#{connectedBean.comedyMovie}" var="value">
+
+          <div class="gui-card">
+            <div class="gui-card__media">
+          <a   href="http://localhost:8080/movieTest/connected.jsf">     <h:graphicImage class="gui-card__img" url="#{value.poster_path}" style = "width : 230px; height :345px;" /> </a>
+            
+           <!--     <img class="gui-card__img" src="https://img1.ibxk.com.br/2015/11/12/12134915138723.jpg?w=700" alt=""  />  -->
+            </div>
+            <div class="gui-card__details">
+              <div class="gui-card__title" style = "color : white;">
+              <!--  <p style = "color : white">  #{value.getTitle()} </p> -->
+              <h:form> 
+              <h:commandLink  action="#{connectedBean.doublefunc}"  value="#{value.getTitle()}" >
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
+		
+		</h:commandLink>
+		</h:form>
+              
+              
+              
+              
+              </div>
+            </div>
+          </div>
+          </ui:repeat>
+
+        </div>
+
+      </div>
+      <span onmouseover="scrollDireita()" onmouseout="clearScroll()"  class="handle handleNext active">
+       <a   href="http://localhost:8080/movieTest/connected.jsf"> <i class="fa fa-caret-right" aria-hidden="true"></i> </a>
+      </span>
+    </div>
+    
+    
+    
+    
+       <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+     
+    
+    
+    
+    
+      <div class="slider">
+      <h3 style = "color : white;">Adventure Movies</h3>
+      <span onmouseover="scrollEsquerda()" onmouseout="clearScroll()" class="handle handlePrev active">
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+      </span>
+      
+
+      <div id="scroller" class="row">
+      
+        <div class="row__inner">
+      <ui:repeat value="#{connectedBean.adventureMovie}" var="value">
+
+          <div class="gui-card">
+            <div class="gui-card__media">
+          <a   href="http://localhost:8080/movieTest/connected.jsf">     <h:graphicImage class="gui-card__img" url="#{value.poster_path}" style = "width : 230px; height :345px;" /> </a>
+            
+           <!--     <img class="gui-card__img" src="https://img1.ibxk.com.br/2015/11/12/12134915138723.jpg?w=700" alt=""  />  -->
+            </div>
+            <div class="gui-card__details">
+              <div class="gui-card__title" style = "color : white;">
+              <!--  <p style = "color : white">  #{value.getTitle()} </p> -->
+              <h:form> 
+              <h:commandLink  action="#{connectedBean.doublefunc}"  value="#{value.getTitle()}" >
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
+		
+		</h:commandLink>
+		</h:form>
+              
+              
+              
+              
+              </div>
+            </div>
+          </div>
+          </ui:repeat>
+
+        </div>
+
+      </div>
+      <span onmouseover="scrollDireita()" onmouseout="clearScroll()"  class="handle handleNext active">
+       <a   href="http://localhost:8080/movieTest/connected.jsf"> <i class="fa fa-caret-right" aria-hidden="true"></i> </a>
+      </span>
+    </div>
+    
+    
+    
+    
+    
+    
+       
+       <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+     
+    
+    
+    
+    
+      <div class="slider">
+      <h3 style = "color : white;">Action Movies</h3>
+      <span onmouseover="scrollEsquerda()" onmouseout="clearScroll()" class="handle handlePrev active">
+        <i class="fa fa-caret-left" aria-hidden="true"></i>
+      </span>
+      
+
+      <div id="scroller" class="row">
+      
+        <div class="row__inner">
+      <ui:repeat value="#{connectedBean.actionMovie}" var="value">
+
+          <div class="gui-card">
+            <div class="gui-card__media">
+          <a   href="http://localhost:8080/movieTest/connected.jsf">     <h:graphicImage class="gui-card__img" url="#{value.poster_path}" style = "width : 230px; height :345px;" /> </a>
+            
+           <!--     <img class="gui-card__img" src="https://img1.ibxk.com.br/2015/11/12/12134915138723.jpg?w=700" alt=""  />  -->
+            </div>
+            <div class="gui-card__details">
+              <div class="gui-card__title" style = "color : white;">
+              <!--  <p style = "color : white">  #{value.getTitle()} </p> -->
+              <h:form> 
+              <h:commandLink  action="#{connectedBean.doublefunc}"  value="#{value.getTitle()}" >
+		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
+		
+		</h:commandLink>
+		</h:form>
+              
+              
+              
+              
+              </div>
+            </div>
+          </div>
+          </ui:repeat>
+
+        </div>
+
+      </div>
+      <span onmouseover="scrollDireita()" onmouseout="clearScroll()"  class="handle handleNext active">
+       <a   href="http://localhost:8080/movieTest/connected.jsf"> <i class="fa fa-caret-right" aria-hidden="true"></i> </a>
+      </span>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+					
+					
+					</div>
+
+  
+					
+					
+					
+					
+					</div>
+					
+					
+					
+				
+					
+					<div> 
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+
+
+
+
+
+
+<ui:include src="./footer.xhtml"/>
+</h:body>
+</html>

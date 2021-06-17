@@ -136,6 +136,99 @@ public class Persistance {
 
 		return movies;
 	}
+	
+	//---------------------------khra-----
+	
+	public static ArrayList<Movie> getMoviesOfGenre(String source,int taille,String genre,int numMovie) {
+		// System.out.println(searchMovieByImdb("tt0114885"));
+
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+		try {
+			String query = "SELECT * FROM (SELECT * FROM movie m WHERE m.data_source = ? LIMIT ? ) as a where a.data_source= ? and a.genres LIKE ? LIMIT ? ";
+			Connection dbConnection = JdbcConnection.getConnection();
+			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			preparedStatement.setString(1, source);
+			preparedStatement.setInt(2, taille);
+			preparedStatement.setString(3, source);
+			
+			preparedStatement.setString(4, "%"+genre+"%");
+			
+			preparedStatement.setInt(5, numMovie);
+
+
+
+
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Movie movie = new Movie();
+				movie.setTitle(rs.getString("title"));
+				movie.setDataSource(rs.getString("data_source"));
+				String dataSource = rs.getString("data_source");
+				String posterpath = "";
+				if (dataSource.contentEquals("kaggle")) {
+					String imdb_id = rs.getString("imdb_id");
+					String posterbyImdbid = OmdbApi.getMoviePosterByImdbID(imdb_id);
+					if (!posterbyImdbid.contentEquals("")) {
+						posterpath = posterbyImdbid;
+					} else {
+						posterpath = "C:\\j2Eclipse\\workspace_Jee\\movieTest\\WebContent\\resources\\images\\netflix-image.jpg";
+					}
+
+					movie.setPoster_path(posterpath);
+
+				} else {
+					String posterAlloCine = rs.getString("poster_path");
+					posterpath = posterAlloCine;
+					movie.setPoster_path(posterpath);
+
+				}
+
+				movies.add(movie);
+			}
+			preparedStatement.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return movies;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//------------------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public static String getGenre(String name) throws Exception {
 		String genre = "";
@@ -299,15 +392,17 @@ public class Persistance {
 		 }
 	 
 	 
-	 public static ArrayList<Movie> getMovies(String word) {
+	 public static ArrayList<Movie> getMovies(String word,String source) {
 		// System.out.println(searchMovieByImdb("tt0114885"));
 
 		ArrayList<Movie> movies = new ArrayList<Movie>();
 		try {
-		String query = "SELECT title,data_source FROM movie WHERE title LIKE ? and data_source = 'kaggle' or data_source = 'allocine' LIMIT 10";
+		String query = "SELECT title,data_source FROM movie WHERE title LIKE ? and data_source = ? LIMIT 10";
 		Connection dbConnection = JdbcConnection.getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		preparedStatement.setString(1, word+"%");
+		preparedStatement.setString(2, source);
+
 		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
 		Movie movie = new Movie();
@@ -359,9 +454,11 @@ public class Persistance {
 	public static Movie getMovieinfo(String valButton) {
 		Movie movie = new Movie();
 		try {
-			String query = "SELECT * FROM movie where title ='" + valButton + "'";
+			String query = "SELECT * FROM movie where title = ?";
 			Connection dbConnection = JdbcConnection.getConnection();
 			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			preparedStatement.setString(1,valButton );
+
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				movie.setId(rs.getString("id"));
@@ -654,11 +751,19 @@ public class Persistance {
 		//System.out.println(Persistance.getSourceId("Z20141218234416927428111"));
 //System.out.println(getuserSource(196));	
 		//System.out.println(Persistance.getuserType("Z20141218234416927428111"));
-		ArrayList<Movie> arry = Persistance.getMoviesOfUser("kaggle",6000);
+		/*
+		ArrayList<Movie> arry = Persistance.getMoviesOfGenre("allocine",5000,"dram",40);
 		for (int i = 0; i < arry.size(); i++) {
 			System.out.println(arry.get(i).toString());
 		}
+		*/
 		
+		Movie m = Persistance.getMovieBytitle("L'Annonce faite à Marie");
+		System.out.println(m.toString());
+		// getMovieBytitle
+		
+		Movie m2 = Persistance.getMovieinfo("L'Annonce faite à Marie");
+		System.out.println(m.toString());
 	}
 
 }

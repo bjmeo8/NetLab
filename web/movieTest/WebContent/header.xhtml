@@ -338,7 +338,7 @@ background-color: #11ffee00;
   <div class="wrap">
 		<div class="header_top">
 			<div class="logo">
-			<a   href="https://www.google.com/"><img src="./resources/images/logo8.png" alt="a"   style="width : 130px; height : 70px  "  /></a>
+			<a   href="http://localhost:8080/movieTest/connected.jsf"><img src="./resources/images/logo8.png" alt="a"   style="width : 130px; height : 70px  "  /></a>
 				
 			</div>
 			  <div class="header_top_right">
@@ -348,17 +348,20 @@ background-color: #11ffee00;
               			<input type="text" name="search" id="search" placeholder="search movie"> </input>
 				    </form>
 				   --> 
+				   
+				   
 				    <h:form  >  
 					<p:growl id="msgs" showDetail="true" />  
 					<p:outputLabel  value="search: " />  
 					<p:autoComplete style = " z-index: 9999999; color : black" value="#{connectedBean.search}" completeMethod="#{connectedBean.completeTheme}" />
-					<h:commandLink   action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
+					<h:commandLink   action="#{connectedBean.doublefunc}"  value="See more" styleClass= "btn btn-success">
 
 					<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{connectedBean.search}"/>
 
 					</h:commandLink>
 
 					</h:form> 
+			
 			
 				   
 				   
@@ -416,9 +419,25 @@ background-color: #11ffee00;
 	  	   <li> 
 	  <h:form >
 	  		<h:commandLink  action="#{connectedBean.useAlgoUserUser}"  value="user user" /> 
-	  </h:form>		
-	  
+	  </h:form>	
+
 	  </li>
+	  
+	  
+	  <li> 
+	  <h:form >
+	  		<h:commandLink  action="#{connectedBean.displaymovieGenre}"  value="movies genre" /> 
+	  </h:form>	
+
+	  </li>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  <div class="clear"></div>
 	</ul>
  </div>

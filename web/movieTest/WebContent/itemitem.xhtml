@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<title>Movies</title>
+	<title>item item similarity</title>
 	<style>
 .grid { 
   margin-left : 30px;
@@ -61,7 +61,7 @@
       <h:graphicImage url="#{value.poster_path}" style = "width : 230px; height :345px;" />
       <p style = "color : white">#{value.title}</p>
       	<h:form>      	
-		<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
+		<h:commandLink  action="#{connectedBean.doublefunc}"  value="See more" styleClass= "btn btn-success">
 		
 		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
 		

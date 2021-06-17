@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Movies</title>
 
@@ -105,8 +105,7 @@ h1{
       <p style = "color : white">#{value.title}</p>
       <p style = "color : red">#{value.dataSource}</p>
       	<h:form>      	
-		<h:commandLink  action="#{connectedBean.getMovieInfos}"  value="See more" styleClass= "btn btn-success">
-		
+		<h:commandLink  action="#{connectedBean.doublefunc}"  value="See more" styleClass= "btn btn-success">
 		<f:setPropertyActionListener target="#{connectedBean.valButton}" value="#{value.title}"/>
 		
 		</h:commandLink>
